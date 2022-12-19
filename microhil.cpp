@@ -32,7 +32,7 @@ int abssignal = 0;
 unsigned long debounce_button = 0;
 unsigned long debounce_encoder = 0;
 int debounce_time_button = 200;
-int debounce_time_encoder = 50;
+int debounce_time_encoder = 5;
 int prescaler_rpm = 1;
 int prescaler_speed = 64;
 
@@ -79,9 +79,9 @@ int calcSpeedFrequency()
 {
   float speedms = vehiclespeed/3.6;
   float ff = speedms/rollingCircumference*pulsesPerRotation;
-  int f = 2*round(ff);
+  float f = 2*ff;
   int tf;
-  tf=16000000/(prescaler_speed*f)-1;
+  tf=round(16000000/(prescaler_speed*f)-1);
   OCR5A = tf;
   TIMSK5 |= (1 << OCIE5A);
 }
